@@ -1,0 +1,36 @@
+name: 'Conan Upload'
+description: 'Uploads conan package to given remote'
+
+inputs:
+  runner:
+    description: Name of Github Actions runner to use
+    required: true
+    type: string
+  package_name:
+    description: Name of conan package to build
+    required: true
+    type: string
+  remote_url:
+    description: URL of remote to deploy package to
+    required: true
+    type: string
+  user:
+    description: Name of user allowed to deploy the package
+    required: true
+    type: string
+  password:
+    description: Password for user allowed to deploy the package
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - id: conan
+      uses: turtlebrowser/get-conan@v1.1
+    - run: conan remote add GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.remote_rul }}
+      shell: bash
+    - run: conan upload -r GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.package_name }}
+      shell: bash
+    - run: conan remote remove GITHUB_ACTIONS_TEMP_REMOTE
+      shell: bash
