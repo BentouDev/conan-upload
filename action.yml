@@ -18,6 +18,10 @@ inputs:
     description: Password for user allowed to deploy the package
     required: true
     type: string
+  options:
+    description: Additional arguments passed to conan
+    required: false
+    type: string
 
 runs:
   using: "composite"
@@ -28,7 +32,7 @@ runs:
       shell: bash
     - run: conan user ${{ inputs.user }} -r GITHUB_ACTIONS_TEMP_REMOTE -p ${{ inputs.password }}
       shell: bash
-    - run: conan upload -r GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.package_name }}
+    - run: conan upload -r GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.package_name }} ${{ inputs.options }}
       shell: bash
     - run: |
         conan remote remove GITHUB_ACTIONS_TEMP_REMOTE
