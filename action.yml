@@ -27,10 +27,10 @@ runs:
   using: "composite"
   steps:
     - id: conan
-      uses: turtlebrowser/get-conan@v1.1
+      uses: turtlebrowser/get-conan@v1.2
     - run: conan remote add GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.remote_url }}
       shell: bash
-    - run: conan user ${{ inputs.user }} -r GITHUB_ACTIONS_TEMP_REMOTE -p ${{ inputs.password }}
+    - run: conan remote login GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.user }} -p ${{ inputs.password }}
       shell: bash
     - run: conan upload -r GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.package_name }} ${{ inputs.options }}
       shell: bash
