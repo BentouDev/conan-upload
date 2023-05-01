@@ -35,6 +35,6 @@ runs:
     - run: conan upload -r GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.package_name }} ${{ inputs.options }}
       shell: bash
     - run: |
+        conan remote logout GITHUB_ACTIONS_TEMP_REMOTE
         conan remote remove GITHUB_ACTIONS_TEMP_REMOTE
-        conan user -c
       shell: bash
