@@ -28,7 +28,7 @@ runs:
   steps:
     - id: conan
       uses: turtlebrowser/get-conan@v1.2
-    - run: conan remote add GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.remote_url }}
+    - run: conan remote add GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.remote_url }} --force
       shell: bash
     - run: conan remote login GITHUB_ACTIONS_TEMP_REMOTE ${{ inputs.user }} -p ${{ inputs.password }}
       shell: bash
